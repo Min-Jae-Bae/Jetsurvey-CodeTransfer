@@ -40,6 +40,7 @@ class SurveyViewModelTest {
      올려놓고 실제로 사용할 때 값을 넣을려고 만들었어 즉 변수 생성은 미리 해두고 초기화는 해당 변수가 필요할 때만 초기화 할꺼야
      */
 
+    /*TODO: viewModel은 변수이고 SurveyViewModel은 클래스인데 클래스를 함수처럼 사용하는건가 ? 왜 이렇게 쓰지? */
     private lateinit var viewModel: SurveyViewModel
 
     /*
@@ -73,11 +74,45 @@ class SurveyViewModelTest {
         )
     }
 
+
+    /*
+    이제는 본격적으로 시험을 만들려고 해. 만들려면 먼저 시험을 만들 것이라는 것을 컴퓨터에게 알려줘야 해
+    그래서 맨 앞에다가 @Test를 작성하면 그러면 컴퓨터가 "아! 앞으로 시험을 작성할 거구나 !"라고 이해할 수 있어.
+    내가 만들려는 시험은 사용자가 날짜를 선택하면 그 값이 올바르게 저장되어 있는지 확인하는 것을 만들거야
+    그래서 그 시험지의 이름은 onDatePicked_storesValueCorrectly라고 지었어
+    */
+
     @Test
     fun onDatePicked_storesValueCorrectly() {
+
+        /*
+        날짜를 선택하기
+        처음에 값을 넣으면 변경할 수 없게 만들어주는 저장공간을 만들건데 사용하려면 앞에 val을 사용해 줘야해
+        그리고 저장공간의 이름은 처음 날짜를 초 단위로 변경 했다라고 알 수 있게 이름을 지어야 해 그래서 initialDateMilliseconds라
+        지었어 그래서 처음의 날짜 시작은 0이므로 0L이라고 했어. 0L은 명시적으로 long형 0이란 의미야.
+         int와 long은 둘다 우리가 알고 있는 일반적인 정수 숫자를 쓰는데 다른 점은 long이 더 큰 숫자 범위를 가진다는
+         차이가 있어 그래서 날짜를 초로 바꾸면 무지막지한 큰 숫자가 나오기 때문에 long형을 사용했어.
+         viewModel은 ServeyViewModel 제품을 사용하는데. 제품 안에 있는 기능을 어떻게 불러야 할까 ?!?
+        그것은 바로 ( . )을 사용하면 원하는 제품의 기능을 마음대로 부를 수 있다. 그래서 ServeyViewModel에 날짜 선택
+         기능(onDatePicked)을 부를거야. 그런데 날짜를 선택하는 기능을 사용하기 위해서는 2가지 조건이 필요해.
+         첫째는 Id를 물어보는 Int형 정수(questionId: Int), 둘째는 사용자가 선택한 날짜의 밀리초 Long형 정수형(pickerSelection: Long)을 받아야 해.
+         그래서 사용자가 날짜를 선택할 때 날짜의 ID를 물어보고 값을 넣었고(dateQuestionId),처음의 날짜 시작을 지정(initialDateMilliseconds=0L)했어
+
+        */
+
         // Select a date
         val initialDateMilliseconds = 0L
         viewModel.onDatePicked(dateQuestionId, initialDateMilliseconds)
+
+        /*
+         저장된 날짜 가져오기
+         처음에 값을 지정하면 변경할 수 없게 만드는 저장공간을 val로 지정했고 저장공간 이름은 새로운 날짜를 초 단위로 바꿨다는
+         의미를 전달 할 수 있게 newDateMillisecond로 지었습니다.
+         viewModel은 SurveyViewModel을 사용하는데 viewModel에 있는 현재 날짜를 가져오는 기능(getCurrentDate)을 불러오려고 한다.
+         getCurrentDate는 정수형 Int로 Id를 물어보고 얻은 값을 정수형 Long인 선택된 날짜로 변경하는 기능을 가졌다.
+         즉 이 기능을 실행 시키기 위해서는 Id를 물어보는 Int형 정수(questionId: Int)가 필요하다 그래서 날짜의 ID 값을 넣었다(dateQuestionId)
+
+         */
 
         // Get the stored date
         val newDateMilliseconds = viewModel.getCurrentDate(dateQuestionId)
