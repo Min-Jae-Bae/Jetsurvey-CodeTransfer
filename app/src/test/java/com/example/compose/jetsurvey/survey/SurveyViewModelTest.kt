@@ -111,20 +111,50 @@ class SurveyViewModelTest {
          viewModel은 SurveyViewModel을 사용하는데 viewModel에 있는 현재 날짜를 가져오는 기능(getCurrentDate)을 불러오려고 한다.
          getCurrentDate는 정수형 Int로 Id를 물어보고 얻은 값을 정수형 Long인 선택된 날짜로 변경하는 기능을 가졌다.
          즉 이 기능을 실행 시키기 위해서는 Id를 물어보는 Int형 정수(questionId: Int)가 필요하다 그래서 날짜의 ID 값을 넣었다(dateQuestionId)
-
          */
 
         // Get the stored date
         val newDateMilliseconds = viewModel.getCurrentDate(dateQuestionId)
 
+        /*
+        처음 날짜와 새로운 날짜가 동일한지 확인하기
+
+         사용자 한테 받은 새로운 날짜의 초단위 변경 값과, 처음의 날짜 초단위 변경 값이 같다라는 것을 확인하기 위해서는
+         두 값이 같다라는 것을 주장해야한다. 어떤 값을 주장하기 위해서는 assertThat A를 사용한다. assert라는 것은 주장하다
+         라는 뜻이고 That은 지정한 값을 의미힌다. 그래서 지정한 값(That)과 같다는 기능을 불러오려면 ( . )을 사용하면 된다.
+         그래서 A와 B가 같다는 것을 쓰기 위해서는 A isEqualTo B를 사용하면 된다.
+         결국엔 newDateMilliseconds가 initialDateMilliseconds와 같다는 것을 주장하는 것이다.
+         */
         // Verify they're identical
         assertThat(newDateMilliseconds).isEqualTo(initialDateMilliseconds)
     }
 }
 
+/*
+ 변경 불가능하고 변하지 않는 값인 날짜의 Id를 물어보는 저장공간을 만들 것인데 그 이름을 dateQuestionId라고 지었어
+ 나는 변경 불가능하고 변하지 않는 값을 정의하고 싶을 때는 const val을 사용해, 이것은 인간이 이해할 수 있는 언어를
+   컴퓨터가 이해할 수 있는 언어로 변경하는 시점에서 값이 넣어지는 것이다. 그 말은 함수나 클래스 생성자로 넣어질 수 없고
+   기본 자료형만(정수, 실수, 등등..) 넣어질 수 있다. 결론적으로 dateQuestionId를 변경 불가능하고
+   변하지 앟는 값 1로 지정하는 것이다.*/
+
 const val dateQuestionId = 1
 
+
+/*
+ 컴퓨터야 나는 지금부터 TestSurveyRepository 제품을 만들려고 해, 이 제품의 기능은 Survey 저장소를 시험해, 그리고
+ ( : )를 사용해서 SurveyRepository 상위 제품으로 부터 기능을 물려 받았어*/
+
 class TestSurveyRepository : SurveyRepository {
+
+    /*
+     나는 이 제품 안에서만 사용할 수 있고 초기에 값을 지정하면 나중에 값을 변경할 수 없는 저장 공간 testSurvey를 만들었어
+     즉 Survey 시험 장소를 만든 셈이지 그리고 Suervey라는 시험 장소에서 컴퓨터에게 Survey라는 시험지를 나누어 주었어
+      */
+
+    /*
+     @StringRes
+     Denotes that an integer parameter,
+     field or method return value is expected to be a String resource reference*/
 
     private val testSurvey = Survey(
         title = -1,
