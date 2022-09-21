@@ -25,6 +25,12 @@ data class SurveyResult(
     @StringRes val description: Int
 )
 
+/*
+   @StringRes
+   Denotes that an integer parameter, field or method return value is expected to be a String resource reference
+   정수형 매개변수, 내부 또는 매소드 반환 값은 문자열 정보로 예상되는 것을 표시함
+   */
+
 data class Survey(
     @StringRes val title: Int,
     val questions: List<Question>
@@ -50,6 +56,12 @@ sealed class SurveyActionResult {
     data class Contact(val contact: String) : SurveyActionResult()
 }
 
+/*
+sealed class란 ?
+sealed 클래스가 자기 자신이 추상 클래스이고, 자신을 상속받는 여러 서브 클래스를 가진다.
+sealed 클래스의 서브 클래스들은 반드시 같은 파일 내에 선언되어야 함으로써 다른 곳에서
+자신의 서브 클래스가 없다는 것을 알려주는 것과 같다.
+*/
 sealed class PossibleAnswer {
     data class SingleChoice(val optionsStringRes: List<Int>) : PossibleAnswer()
     data class SingleChoiceIcon(val optionsStringIconRes: List<Pair<Int, Int>>) : PossibleAnswer()

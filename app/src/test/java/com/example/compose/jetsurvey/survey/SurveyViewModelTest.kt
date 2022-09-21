@@ -148,13 +148,24 @@ class TestSurveyRepository : SurveyRepository {
 
     /*
      나는 이 제품 안에서만 사용할 수 있고 초기에 값을 지정하면 나중에 값을 변경할 수 없는 저장 공간 testSurvey를 만들었어
-     즉 Survey 시험 장소를 만든 셈이지 그리고 Suervey라는 시험 장소에서 컴퓨터에게 Survey라는 시험지를 나누어 주었어
+     즉 testSurvey 시험 장소를 만든 셈이지 그리고 이 시험 장소에서 컴퓨터에게 Survey라는 시험지를 나누어 주었어
+
+     Survey 시험지는 data로 만들어진 제품이야. 이 제품의 data에 접근하기 위해서는 2가지가 필요한데 첫째는 받은 값을 문자열
+     정보로 예상된다는 표시를 해줘야 하는데 그것을 앞에 @StringRes라고 붙여주면 돼 그리고 값을 지정하면 변경할
+     수 없는 저장공간 title(제목)을 만들었어 여기에는 정수형만 받을 수 있어. 그래서 정수형 -1을 넣었어
+     두번째로는 값을 지정하면 변경할 수 없는 저장공간인 questions(질문)을 만들었어 여기에는 저장공간에 여러 값을 차례대로
+     넣고 싶어서 List를 만들었어 이 List는 한 번 지정하면 값을 변경할 수 없고 변하지도 않아 그리고 그 안에 순서대로
+     들어가는 것은 Question이야. 우리가 질문을 순서대로 나열한거라 보면 돼. listOf()를 사용해서 우리는 List의
+     Question 목록을 불러올 수 있어
+     data로 만들어진 Question 제품은
+     값 지정시 변경 불가인 저장공간 id를 만들고 정수형만 받는다
+     받은 값을 문자열 정보로 예상된다는 표시를 @StringRes로 해주고 값 지정시 변경 불가인 저장공간 questionText(질문 글)를
+     만들고 정수형만 받게 한다 (-1 값을 넣음).
+     값 지정지 변경 불가인 저장공간 answer를 만들고 PossibleAnswer
+
       */
 
-    /*
-     @StringRes
-     Denotes that an integer parameter,
-     field or method return value is expected to be a String resource reference*/
+
 
     private val testSurvey = Survey(
         title = -1,
