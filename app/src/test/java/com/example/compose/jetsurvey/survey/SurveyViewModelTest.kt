@@ -178,7 +178,19 @@ class TestSurveyRepository : SurveyRepository {
         )
     )
 
+    /*
+    나는 상위 제품의 세부 기능(메소드)을 다시 만들기 위해서 override를 사용할 건데. 세부 기능 이름은 물론 넣는 값(인자) 개수와 유형도
+    동일해야 할 수 있어. 사용하는 이유는 주로 상위 제품을 복사한 하위 제품에서 세부적인 기능 동작을 변경하기 위해서 사용해
+    결국에 우리는 Survey라는 상위 제품에서 getSurvey(조사한 정보를 가져오기)라는 기능을 가져와서 사용하고 이 testSurvey(조사 테스트)
+    를 넣어. testSurvey는 위에서 우리가 한 내용이랑 연결이 되는데 testSurvey라는 저장공간안에 Survey라는 기능을 넣어다고 봐야하지
+    */
     override fun getSurvey() = testSurvey
+    
+    /*
+    위에 처럼 상위 제품을 복사한 하위 제품의 세부적인 기능 동작을 살짝 변경하고 사용하기 위해서 override를 사용했어. 상위 제품은
+    SurveyResult(조사 결과)에서 복사했고 getSurveyResult(조사 결과 가져오기) 기능을 가져와서 쓸거야 이 기능은 answers라는 값을
+    받는 저장공간을 받야만 해. 이 저장공간은 
+    */
 
     override fun getSurveyResult(answers: List<Answer<*>>): SurveyResult {
         TODO("Not yet implemented")
